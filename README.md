@@ -1,9 +1,9 @@
 # aniscraping
-A simple bash script to watch anime by taking nyya torrents and playing with peerflix tool
+A simple bash script to watch anime
 
 ## Dependencies
 1. mpv o vlc o mplayer **Default is VLC**
-2. peerflix https://github.com/mafintosh/peerflix
+2. wevtorrent https://github.com/webtorrent/webtorrent
 3. wget y curl
 
 ## Using mpv
