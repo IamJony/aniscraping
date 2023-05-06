@@ -1,0 +1,125 @@
+#!/bin/bash
+
+# aniscraping
+# script created by IamJony.
+
+# My github https://github.com/IamJony
+
+# Set color
+#
+White='\e[0;37m'
+Black='\e[0;30m'        
+Green='\e[0;32m'        
+Yellow='\e[0;33m'     
+Blue='\e[0;34m' 
+Red='\e[0;31m'          
+Purple='\e[0;35m'     
+Cyan='\e[0;36m'       
+     
+BBlack='\e[1;30m'       # Black
+BRed='\e[1;31m'         # Red
+BGreen='\e[1;32m'       # Green
+BYellow='\e[1;33m'      # Yellow
+BBlue='\e[1;34m'        # Blue
+BPurple='\e[1;35m'      # Purple
+BCyan='\e[1;36m'        # Cyan
+BWhite='\e[1;37m'       # White
+
+# Web page
+nyaa='https://nyaa.si/?q='
+frozen='https://www.frozen-layer.com/buscar/descargas/'
+# Player
+player='vlc'
+
+# Directory
+dir="$HOME/.anime"
+mkdir $dir/ 2>/dev/null &
+rm $dir/.html* 2>/dev/null &
+
+# function scraping nyya
+scraping() {
+	
+	# nyaa
+	title_anime_nyaa=$(cat $dir/.html_anime | sed -n '/comment/!{/<a[^>]*href="[^"]*\/view\/[^"]*"[^>]*>/s/.*title="\([^"]*\)".*/\1/p;}' > $dir/.title_anime)
+	link_anime=$(cat $dir/.html_anime | sed -n 's/.*\(\/download\/[0-9]*\.torrent\).*/https:\/\/nyaa.si\1/p' > $dir/.link_anime)
+
+	# frozen
+	title_anime_frozen=$(cat $dir/.html_anime_frozen | sed -n '/<td class='"'"'tit'"'"'>/{:start /<\/td>/!{N;b start};/<a/{s/.*<a[^>]*>\([^<]*\)<\/a>.*/\1/;p}}' >> $dir/.title_anime)
+	link_anime_frozen=$(cat $dir/.html_anime_frozen | sed -n "s/.*<a data-skip-pjax='true' href='\(\/descargas\/[^']*\)' title='descargar torrent'>/https:\/\/www.frozen-layer.com\1/p" >> $dir/.link_anime)
+	
+	file1="$dir/.title_anime"
+	file2="$dir/.link_anime"
+	
+#Contador
+line_num=1
+	
+# Leer el archivo y guardar cada línea en un array
+
+if [ ! -s $dir/.title_anime ]; then
+  echo -e $BRed'no se encontraron resultados'
+  sleep 2
+  clear
+	start
+  fi
+
+
+readarray -t LINES < $dir/.title_anime
+
+# Imprimir el menú
+echo -e $White''
+
+for i in "${!LINES[@]}"; do
+	printf "%02d. %s\n" "$i" "${LINES[$i]}"
+	echo -e ''
+done
+
+
+# Leer la selección del usuario
+echo -e ""
+echo -e $BRed 's = search || q = exit'
+echo -e ""
+echo -e $BYellow'Plase, choose an option'
+read -p "Opción: " OPTION
+
+
+
+# Validar la selección del usuario
+if [[ "$OPTION" =~ ^[0-9]+$ && "$OPTION" -ge 0 && "$OPTION" -lt "${#LINES[@]}" ]]; then
+  rm $dir/*.torrent
+  echo "Ha seleccionado la opción $OPTION: ${LINES[$OPTION]}"
+  ANOTHER_FILE_LINE=$(sed -n "$((OPTION+1))p" $dir/.link_anime)
+  wget -P $dir $ANOTHER_FILE_LINE
+  webtorrent $dir/*.torrent --$player
+  
+elif [[ $OPTION == "q" || $OPTION == "Q" ]]; then
+  exit 0
+ 
+elif [[ $OPTION == "s" || $OPTION == "S" ]]; then
+clear
+rm $dir/.html* 2>/dev/null &
+start
+else
+  echo -e $BRed'Selecion invalida'
+  sleep 2
+  scraping
+fi
+
+    
+	
+}
+
+
+
+start() {
+	
+echo -e $BYellow''
+read -p "Please , insert name of anime: " input &&
+echo -e $White''
+	input=${input// /+}
+	curl -s "$nyaa""$input" >> $dir/.html_anime
+	curl -s "$frozen""$input" >> $dir/.html_anime_frozen
+	scraping
+
+}
+
+start
