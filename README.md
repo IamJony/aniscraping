@@ -3,7 +3,7 @@ A simple bash script to watch anime by taking nyya torrents and playing with pee
 
 ## Dependencies
 1. mpv o vlc o mplayer **Default is MPV**
-2. peerflix 'https://github.com/mafintosh/peerflix'
+2. peerflix https://github.com/mafintosh/peerflix
 3. wget y curl
 
 ## Using VLC
