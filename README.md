@@ -23,9 +23,15 @@ Just change the player variable 'vlc' to player='mpv' of the script
 ## Install in Windows 
 
 1. Install nodejs https://nodejs.org/en/download
+
+
 2.Install git bash https://git-scm.com/download/win
+
 3. Install wget https://eternallybored.org/misc/wget/
 You must copy wget.exe to the route where git was installed on the "bin carpet" 
+
 4. Install webtorrent npm install webtorrent-cli -g
-4.execute win_aniscraping "./win_aniscraping" 
+
+
+5.execute win_aniscraping "./win_aniscraping" 
 
