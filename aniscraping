@@ -101,7 +101,7 @@ if [[ "$OPTION" =~ ^[0-9]+$ && "$OPTION" -ge 0 && "$OPTION" -lt "${#LINES[@]}" ]
   rm $dir/*.torrent
   #echo "Ha seleccionado la opción $OPTION: ${LINES[$OPTION]}"
   ANOTHER_FILE_LINE=$(sed -n "$((OPTION+1))p" $dir/.link_anime)
-  wget -P $dir $ANOTHER_FILE_LINE && $directory_webtorrent $HOME/.anime/*.torrent --$player 
+  wget -P $dir $ANOTHER_FILE_LINE && "$directory_webtorrent" $HOME/.anime/*.torrent --$player 
   scraping
   
 else
