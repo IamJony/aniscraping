@@ -20,6 +20,23 @@ Just change the player variable 'vlc' to player='mpv' of the script
 
 ![Aniscraping1](https://raw.githubusercontent.com/IamJony/semi-nord-theme-bluefish/main/Screenshot_2023-05-06-11-26-24_1366x768.png)
 
+## Install in Android **Termux**
+You can use the scripts from Android thanks to termux and thus transmit by DLNA protocol to any device on the network and reproduce it with your favorite player
+
+1. Install termux
+
+2. pkg install nodejs
+
+3. pkg install wget curl fzf
+
+4. npm install webtorrent-clic -g
+
+5. Execute the scripts 
+
+
+
+
+
 ## Install in Windows 
 
 1. Install nodejs https://nodejs.org/en/download
