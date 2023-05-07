@@ -31,6 +31,9 @@ frozen='https://www.frozen-layer.com/buscar/descargas/'
 # Player
 player='vlc'
 
+# webtorrent directory
+directory_webtorrent=$(whereis webtorrent | cut -d' ' -f2) 
+
 # Directory
 dir="$HOME/.anime"
 mkdir $dir/ 2>/dev/null &
@@ -98,7 +101,7 @@ if [[ "$OPTION" =~ ^[0-9]+$ && "$OPTION" -ge 0 && "$OPTION" -lt "${#LINES[@]}" ]
   rm $dir/*.torrent
   #echo "Ha seleccionado la opción $OPTION: ${LINES[$OPTION]}"
   ANOTHER_FILE_LINE=$(sed -n "$((OPTION+1))p" $dir/.link_anime)
-  wget -P $dir $ANOTHER_FILE_LINE && $HOME/.npm-packages/bin/webtorrent $HOME/.anime/*.torrent --$player 
+  wget -P $dir $ANOTHER_FILE_LINE && $directory_webtorrent $HOME/.anime/*.torrent --$player 
   scraping
   
 else
