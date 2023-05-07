@@ -10,7 +10,6 @@ A simple bash script to watch anime
 Just change the player variable 'vlc' to player='mpv' of the script
 
 
-
 ![example](https://raw.githubusercontent.com/IamJony/semi-nord-theme-bluefish/main/Screenshot_2023-05-06-11-55-53_1366x768.png)
 
 
