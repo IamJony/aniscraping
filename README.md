@@ -5,6 +5,7 @@ A simple bash script to watch anime
 1. mpv o vlc o mplayer **Default is VLC**
 2. webtorrent https://github.com/webtorrent/webtorrent
 3. wget y curl
+4. fzf
 
 ## Using mpv
 Just change the player variable 'vlc' to player='mpv' of the script
